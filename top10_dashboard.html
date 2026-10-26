@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>A(I) Can Do That!? — EMEA Top 10</title>
+<style>
+/* ─── SAP dark palette ───────────────────────────────────────────────── */
+:root {
+  --sap-blue:        #0070F2;   /* SAP signature blue */
+  --sap-blue-dim:    #0057BD;
+  --sap-blue-bright: #1A8FFF;
+  --sap-blue-glow:   rgba(0,112,242,0.18);
+  --sap-blue-subtle: rgba(0,112,242,0.09);
+
+  --bg-base:    #0a0c10;
+  --bg-card:    #111418;
+  --bg-card2:   #161b22;
+  --bg-hover:   #1c2230;
+  --bg-active:  #1a2640;
+
+  --border:     rgba(255,255,255,0.07);
+  --border-hi:  rgba(0,112,242,0.45);
+
+  --txt-1:    #e8edf3;
+  --txt-2:    #8b97a8;
+  --txt-3:    #5a6475;
+
+  /* Criterion colors — SAP blue family + complementary */
+  --cr-creativity:    #0070F2;   /* SAP blue */
+  --cr-replicability: #00B4D8;   /* cyan     */
+  --cr-storytelling:  #7C3AED;   /* violet   */
+  --cr-impact:        #10B981;   /* emerald  */
+
+  --score-max: #10B981;
+  --score-hi:  #0070F2;
+  --score-mid: #F59E0B;
+  --score-lo:  #EF4444;
+
+  --gold:   #F59E0B;
+  --silver: #94A3B8;
+  --bronze: #CD7C2F;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+/* ─── Reset ───────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family: "72","72full",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background: var(--bg-base);
+  color: var(--txt-1);
+  min-height: 100vh;
+  line-height: 1.55;
+}
+
+/* ─── SAP top bar ─────────────────────────────────────────────────────── */
+.sap-topbar{
+  background: #000;
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.sap-logo{display:flex;align-items:center;gap:10px;}
+.sap-logo svg{width:42px;height:26px;flex-shrink:0;}
+.sap-topbar-title{
+  font-size:13px;
+  color:var(--txt-2);
+  border-left:1px solid var(--border);
+  padding-left:16px;
+  margin-left:4px;
+}
+.sap-topbar-pill{
+  margin-left:auto;
+  background: var(--sap-blue-subtle);
+  border: 1px solid var(--border-hi);
+  border-radius:20px;
+  padding:3px 12px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--sap-blue-bright);
+  letter-spacing:.4px;
+  text-transform:uppercase;
+}
+
+/* ─── Hero header ─────────────────────────────────────────────────────── */
+.hero{
+  text-align:center;
+  padding:60px 24px 48px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(0,112,242,0.13) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  color:var(--sap-blue-bright);
+  background:var(--sap-blue-subtle);
+  border:1px solid var(--border-hi);
+  border-radius:20px;
+  padding:4px 14px;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(28px,4vw,48px);
+  font-weight:700;
+  letter-spacing:-0.5px;
+  line-height:1.15;
+  margin-bottom:12px;
+  background: linear-gradient(135deg, #e8edf3 30%, var(--sap-blue-bright) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:15px;
+  color:var(--txt-2);
+  max-width:580px;
+  margin:0 auto 36px;
+}
+.hero-divider{
+  width:60px;
+  height:2px;
+  background:var(--sap-blue);
+  margin:0 auto 36px;
+  border-radius:2px;
+}
+
+/* ─── KPI tiles row ───────────────────────────────────────────────────── */
+.kpi-row{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:56px;
+  padding:0 24px;
+}
+.kpi{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px 24px;
+  min-width:130px;
+  text-align:center;
+  transition:border-color .2s,background .2s;
+}
+.kpi:hover{border-color:var(--border-hi);background:var(--bg-card2);}
+.kpi-val{
+  font-size:34px;
+  font-weight:700;
+  color:var(--txt-1);
+  line-height:1;
+}
+.kpi-val.blue{color:var(--sap-blue-bright);}
+.kpi-label{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  color:var(--txt-3);
+  margin-top:5px;
+}
+.kpi-sub{font-size:11px;color:var(--txt-3);margin-top:2px;}
+
+/* ─── Main layout ─────────────────────────────────────────────────────── */
+.layout{
+  max-width:1240px;
+  margin:0 auto;
+  padding:0 24px 80px;
+  display:grid;
+  grid-template-columns:380px 1fr;
+  gap:24px;
+  align-items:start;
+}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+}
+
+/* ─── Section label ───────────────────────────────────────────────────── */
+.section-label{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+  color:var(--txt-3);
+  margin-bottom:12px;
+}
+
+/* ─── Rankings panel (left) ───────────────────────────────────────────── */
+.rankings-panel{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  position:sticky;
+  top:68px;
+}
+.rankings-header{
+  padding:18px 20px 14px;
+  border-bottom:1px solid var(--border);
+}
+.rankings-header h2{font-size:14px;font-weight:600;color:var(--txt-1);}
+.rankings-header p{font-size:12px;color:var(--txt-3);margin-top:2px;}
+
+.rank-item{
+  display:grid;
+  grid-template-columns:28px 1fr auto;
+  align-items:center;
+  gap:10px;
+  padding:11px 20px;
+  cursor:pointer;
+  border-left:3px solid transparent;
+  transition:background .15s,border-color .15s;
+  border-bottom:1px solid var(--border);
+}
+.rank-item:last-child{border-bottom:none;}
+.rank-item:hover{background:var(--bg-hover);}
+.rank-item.active{
+  background:var(--bg-active);
+  border-left-color:var(--sap-blue);
+}
+
+.rank-num{
+  font-size:12px;
+  font-weight:700;
+  color:var(--txt-3);
+  text-align:center;
+}
+.rank-num.gold   {color:var(--gold);}
+.rank-num.silver {color:var(--silver);}
+.rank-num.bronze {color:var(--bronze);}
+
+.rank-info{}
+.rank-name{font-size:13px;font-weight:600;color:var(--txt-1);}
+.rank-usecase{font-size:11px;color:var(--txt-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;}
+
+.rank-score-badge{
+  font-size:13px;
+  font-weight:700;
+  color:var(--sap-blue-bright);
+  background:var(--sap-blue-subtle);
+  border:1px solid var(--border-hi);
+  border-radius:6px;
+  padding:2px 8px;
+  white-space:nowrap;
+}
+
+/* ─── Segment mini-bar inside ranking item ────────────────────────────── */
+.mini-bar{
+  height:3px;
+  border-radius:2px;
+  margin-top:5px;
+  background:var(--bg-hover);
+  display:flex;
+  gap:1px;
+  overflow:hidden;
+}
+.mini-seg{height:100%;}
+.mini-c{background:var(--cr-creativity);}
+.mini-r{background:var(--cr-replicability);}
+.mini-s{background:var(--cr-storytelling);}
+.mini-i{background:var(--cr-impact);}
+
+/* ─── Video link ──────────────────────────────────────────────────────── */
+.video-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:600;
+  color:var(--sap-blue-bright);
+  background:var(--sap-blue-subtle);
+  border:1px solid var(--border-hi);
+  border-radius:6px;
+  padding:5px 12px;
+  text-decoration:none;
+  margin-top:12px;
+  transition:background .15s,border-color .15s;
+}
+.video-link:hover{background:rgba(0,112,242,.18);border-color:var(--sap-blue);}
+.video-link svg{flex-shrink:0;}
+
+/* ─── Detail panel (right) ────────────────────────────────────────────── */
+.detail-panel{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.detail-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+
+/* Detail header */
+.detail-head{
+  padding:24px 28px 20px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,var(--bg-card2) 0%,var(--bg-card) 100%);
+  position:relative;
+  overflow:hidden;
+}
+.detail-head::after{
+  content:'';
+  position:absolute;
+  top:-40px;right:-40px;
+  width:160px;height:160px;
+  border-radius:50%;
+  background:var(--sap-blue-glow);
+  pointer-events:none;
+}
+.detail-rank-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+}
+.detail-rank-badge{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  padding:3px 10px;
+  border-radius:20px;
+  background:var(--sap-blue-subtle);
+  border:1px solid var(--border-hi);
+  color:var(--sap-blue-bright);
+}
+.detail-rank-badge.gold  {background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.4);color:var(--gold);}
+.detail-rank-badge.silver{background:rgba(148,163,184,.1);border-color:rgba(148,163,184,.35);color:var(--silver);}
+.detail-rank-badge.bronze{background:rgba(205,124,47,.1);border-color:rgba(205,124,47,.35);color:var(--bronze);}
+.detail-name{font-size:22px;font-weight:700;color:var(--txt-1);margin-bottom:4px;}
+.detail-meta{font-size:12px;color:var(--txt-3);display:flex;flex-wrap:wrap;gap:12px;}
+.detail-meta span{display:flex;align-items:center;gap:4px;}
+.detail-usecase-tag{
+  display:inline-block;
+  background:var(--bg-hover);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:6px 12px;
+  font-size:12px;
+  color:var(--txt-2);
+  margin-top:12px;
+}
+
+/* Score pills row */
+.score-pills{
+  display:flex;
+  gap:10px;
+  padding:20px 28px;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.spill{
+  flex:1;
+  min-width:90px;
+  background:var(--bg-card2);
+  border:2px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  cursor:pointer;
+  transition:border-color .18s,background .18s,transform .15s;
+  text-align:center;
+  position:relative;
+}
+.spill:hover{transform:translateY(-2px);background:var(--bg-hover);}
+.spill.active{
+  transform:translateY(-2px);
+  box-shadow:0 0 0 1px var(--spill-color, var(--sap-blue)),
+             0 4px 20px rgba(0,0,0,.3);
+}
+.spill.active::after{
+  content:'▼';
+  position:absolute;
+  bottom:-18px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  color:var(--spill-color, var(--sap-blue));
+}
+.spill-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt-3);margin-bottom:4px;}
+.spill-value{font-size:28px;font-weight:700;line-height:1;}
+.spill-max{font-size:11px;color:var(--txt-3);}
+.spill-total{border-color:var(--sap-blue) !important;}
+.spill-total .spill-value{color:var(--sap-blue-bright);}
+
+/* Criterion detail accordion */
+.crit-detail{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .35s ease,opacity .25s ease;
+  opacity:0;
+  border-bottom:1px solid var(--border);
+}
+.crit-detail.open{max-height:300px;opacity:1;}
+.crit-detail-inner{
+  padding:18px 28px 20px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:16px;
+  align-items:start;
+}
+.crit-detail-text{font-size:13px;color:var(--txt-2);line-height:1.6;}
+.crit-detail-score-big{
+  font-size:48px;
+  font-weight:700;
+  line-height:1;
+  text-align:center;
+  flex-shrink:0;
+}
+.crit-detail-score-label{font-size:11px;color:var(--txt-3);text-align:center;margin-top:2px;}
+
+/* Rubric bar inside accordion */
+.crit-rubric-bar{
+  display:flex;
+  gap:4px;
+  margin-top:12px;
+}
+.crit-pip{
+  height:6px;
+  flex:1;
+  border-radius:3px;
+  background:var(--bg-hover);
+  transition:background .2s;
+}
+.crit-pip.filled{background:var(--spill-color,var(--sap-blue));}
+
+/* Summary section */
+.summary-section{padding:20px 28px;border-bottom:1px solid var(--border);}
+.summary-section h3{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt-3);margin-bottom:8px;}
+.summary-section p{font-size:13px;color:var(--txt-2);line-height:1.65;}
+
+/* Breakdown grid */
+.breakdown-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+}
+@media(max-width:700px){.breakdown-grid{grid-template-columns:1fr;}}
+.breakdown-cell{
+  padding:18px 28px;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.breakdown-cell:nth-child(even){border-right:none;}
+.breakdown-cell:nth-last-child(-n+2){border-bottom:none;}
+.breakdown-cell h4{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  margin-bottom:6px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.breakdown-cell p{font-size:12px;color:var(--txt-2);line-height:1.6;}
+.score-dot{
+  width:18px;height:18px;
+  border-radius:50%;
+  font-size:10px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  flex-shrink:0;
+}
+
+/* ─── Full scoreboard table ───────────────────────────────────────────── */
+.table-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  grid-column:1/-1;
+}
+.table-card-head{padding:18px 24px 0;}
+.table-card-head h2{font-size:14px;font-weight:600;}
+.table-card-head p{font-size:12px;color:var(--txt-3);margin-top:3px;margin-bottom:14px;}
+.score-table{width:100%;border-collapse:collapse;font-size:13px;}
+.score-table th{
+  font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--txt-3);padding:9px 14px;border-bottom:1px solid var(--border);
+  text-align:left;white-space:nowrap;
+}
+.score-table th:not(:first-child):not(:nth-child(2)){text-align:center;}
+.score-table td{
+  padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle;
+}
+.score-table tr:last-child td{border-bottom:none;}
+.score-table tr{cursor:pointer;transition:background .1s;}
+.score-table tr:hover td{background:var(--bg-hover);}
+.score-table tr.active-row td{background:var(--bg-active);}
+.score-table td:not(:first-child):not(:nth-child(2)){text-align:center;}
+.td-rank{font-weight:700;color:var(--txt-3);font-variant-numeric:tabular-nums;}
+.td-name{font-weight:600;}
+.td-total{font-weight:700;font-size:15px;color:var(--sap-blue-bright);}
+.chip{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;
+  font-size:11px;font-weight:700;color:#fff;
+}
+.chip-4{background:var(--score-max);}
+.chip-3{background:var(--score-hi);}
+.chip-2{background:var(--score-mid);color:#111;}
+.chip-1{background:var(--score-lo);}
+
+/* ─── Tooltip ─────────────────────────────────────────────────────────── */
+#tooltip{
+  position:fixed;
+  background:var(--bg-card2);
+  border:1px solid var(--border-hi);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;
+  font-size:12px;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .1s;
+  max-width:240px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  z-index:500;
+}
+#tooltip.show{opacity:1;}
+#tooltip strong{display:block;font-size:13px;color:var(--txt-1);margin-bottom:3px;}
+#tooltip .ts{color:var(--txt-3);}
+
+/* ─── Empty state ─────────────────────────────────────────────────────── */
+.empty-detail{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 24px;text-align:center;
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+}
+.empty-detail .arrow{font-size:32px;margin-bottom:12px;opacity:.4;}
+.empty-detail p{font-size:14px;color:var(--txt-3);}
+
+/* ─── Legend ──────────────────────────────────────────────────────────── */
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--txt-2);}
+.ldot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* ─── Footer ──────────────────────────────────────────────────────────── */
+.footer{text-align:center;padding:32px 24px;font-size:11px;color:var(--txt-3);border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+
+<!-- SAP Top Bar -->
+<nav class="sap-topbar">
+  <div class="sap-logo">
+    <!-- SAP logo SVG (official mark) -->
+    <svg viewBox="0 0 42 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SAP">
+      <rect width="42" height="26" rx="3" fill="#0070F2"/>
+      <path d="M5.2 18.4c.6.4 1.5.7 2.5.7 1.1 0 1.7-.5 1.7-1.2 0-.7-.5-1.1-1.7-1.5C5.9 15.8 5 14.9 5 13.5c0-1.6 1.3-2.8 3.4-2.8.9 0 1.8.2 2.3.5l-.5 1.5c-.4-.2-1-.5-1.9-.5-.9 0-1.5.5-1.5 1.1 0 .7.5 1 1.8 1.5 1.9.7 2.7 1.6 2.7 3 0 1.6-1.2 2.9-3.6 2.9-1.1 0-2.1-.3-2.7-.7l.2-1.6zM14.3 10.9h-2.1l-2.6 9h2l.5-1.9h2.6l.5 1.9h2.1l-2.6-9h-.4zm-.9 5.6l.5-1.9c.1-.5.3-1.2.4-1.7.1.5.3 1.2.4 1.7l.5 1.9h-1.8zM21.5 10.9h-3v9h2v-3.2h1c2 0 3.3-1 3.3-2.9s-1.2-2.9-3.3-2.9zm-.1 4.4h-.9v-3.1h.9c.9 0 1.5.4 1.5 1.5 0 1.1-.6 1.6-1.5 1.6z" fill="white"/>
+    </svg>
+    <span class="sap-topbar-title">A(I) Can Do That!? · EMEA 2026</span>
+  </div>
+  <div class="sap-topbar-pill">Top 10 Results</div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-eyebrow">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M6 4v2.5L7.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    EMEA Tournament · Evaluated 2026-10-25
+  </div>
+  <h1>A(I) Can Do That!?<br>EMEA Top 10</h1>
+  <p class="hero-sub">159 submissions evaluated across Creativity, Replicability, Storytelling, and Impact. These 10 rose to the top.</p>
+  <div class="hero-divider"></div>
+
+  <!-- KPI tiles -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-val">159</div>
+      <div class="kpi-label">Submissions</div>
+      <div class="kpi-sub">EMEA region</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">45</div>
+      <div class="kpi-label">Disqualified</div>
+      <div class="kpi-sub">43 over 70 s · 2 other</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">114</div>
+      <div class="kpi-label">Scored</div>
+      <div class="kpi-sub">≤70 s · work use-case</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val blue">16</div>
+      <div class="kpi-label">Max Score</div>
+      <div class="kpi-sub">4 criteria × 4 pts</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val blue">1</div>
+      <div class="kpi-label">Perfect Score</div>
+      <div class="kpi-sub">16 / 16</div>
+    </div>
+  </div>
+</header>
+
+<!-- Main layout -->
+<div class="layout">
+
+  <!-- LEFT: Rankings panel -->
+  <aside>
+    <div class="section-label">Rankings</div>
+    <div class="rankings-panel" id="rankingsPanel">
+      <div class="rankings-header">
+        <h2>Top 10 Finalists</h2>
+        <p>Click a submission to explore scores</p>
+      </div>
+      <div id="rankList"></div>
+    </div>
+
+    <div class="legend" style="margin-top:16px;">
+      <div class="legend-item"><div class="ldot" style="background:var(--cr-creativity)"></div>Creativity</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--cr-replicability)"></div>Replicability</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--cr-storytelling)"></div>Storytelling</div>
+      <div class="legend-item"><div class="ldot" style="background:var(--cr-impact)"></div>Impact</div>
+    </div>
+  </aside>
+
+  <!-- RIGHT: Detail panel -->
+  <div>
+    <div class="section-label">Submission Detail</div>
+    <div id="detailPanel">
+      <div class="empty-detail">
+        <div class="arrow">←</div>
+        <p>Select a submission from the rankings to see full scoring detail</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full scoreboard table — spans both columns -->
+  <div class="table-card">
+    <div class="table-card-head">
+      <h2>Full Scoreboard</h2>
+      <p>All 10 finalists · C = Creativity · R = Replicability · S = Storytelling · I = Impact · Click row to expand detail above</p>
+    </div>
+    <table class="score-table" aria-label="Top 10 scoreboard">
+      <thead>
+        <tr>
+          <th>#</th><th>Name</th><th>Use-case</th><th>Tool(s)</th>
+          <th>C</th><th>R</th><th>S</th><th>I</th><th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="scoreTableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer class="footer">SAP Internal · A(I) Can Do That!? Tournament · EMEA 2026 · Scoring rubric: Creativity + Replicability + Storytelling + Impact (1–4 each) · <a href="https://sapnam-my.sharepoint.com/shared?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29&listurl=https%3A%2F%2Fsap%2Dmy%2Esharepoint%2Ecom%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments" target="_blank" rel="noopener" style="color:var(--txt-3);text-decoration:none;border-bottom:1px solid var(--border);">All submissions</a></footer>
+
+<div id="tooltip"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════════════════════ */
+const TOP10 = [
+  {
+    rank:1, name:"Hande Nakir", score:16, c:4,r:4,s:4,i:4,
+    useCase:"EWA Holmes — AI-powered EWA report interpreter",
+    tool:"Joule / SAP Premium Engagement", duration:"55s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F87%2E%20Hande%20Nakir%20%28Turkiye%29%2FEWA%5FHolmes%5FHande%20Nakir%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E6a9dcb84%2Debb7%2D4e11%2D9c18%2D2b54c6c6754f",
+    summary:"Frames SAP's notoriously impenetrable Early Watch Alert reports as a Sherlock Holmes detective case. Drag the EWA PDF onto the tool, press Analyze, and receive a customer-ready presentation: risks ranked by severity, actionable recommendations, and matched Premium/Max Success service suggestions — all in minutes.",
+    c_why:"The Sherlock Holmes narrative is the most memorable framing in the competition. 'A new case has arrived — this time, Waldorf.' The hook is instantly charming, the metaphor is perfectly matched to the use-case (a detective reading clues), and the payoff ('Elementary, my dear SPM') lands with wit. No one else in 114 submissions used a literary character persona this elegantly.",
+    r_why:"Crystal clear 3-step flow: drag report → press Analyze → review ranked output. The output structure is fully described (severity ranking, recommendations, matched services). Anyone with the skill installed can do exactly this the same day.",
+    s_why:"Strong hook, clear problem (EWA reports that 'no one can read'), vivid solution demo, and a delightful closing line. Well-paced for 55 seconds. The detective framing makes the narrative arc feel complete — setup, investigation, resolution.",
+    i_why:"Transforms a report that blocks customer conversations into a presentation-ready briefing in minutes. Directly enables Premium/Max Success conversations. Scalable across every SPM who touches EWA reports — a team-level productivity multiplier."
+  },
+  {
+    rank:2, name:"Annabelle Ferrer", score:15, c:4,r:3,s:4,i:4,
+    useCase:"Video-game framing for full RFP & pre-sales demo lifecycle",
+    tool:"EKX, Gemini Notebook, Claude Code, Agent Factory, Joule", duration:"63s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F51%2E%20Annabelle%20Ferrer%20%28France%29%2FEMEA%20AI%20Contest%20v5%20noSub%5FAnnabelle%20FERRER%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ed6f4c32d%2Dd368%2D4551%2D9e1c%2D835b23c432bb",
+    summary:"Frames the entire pre-sales workflow as a video game: RFP hotzone mapping, competitor intel, storytelling, demo generation, data loading, and agentic workflows. Each phase is a 'level.' 'Answering RFPs manually — oh so 2025.' The moment customers' eyes widen is the boss-level unlock.",
+    c_why:"A video-game metaphor for enterprise pre-sales is bold and entirely original. The progression from 'tutorial level' to 'boss level unlocked' maps perfectly onto the complexity escalation. The pop-culture confidence ('oh so 2025') is punchy and self-aware. Using five different AI tools across the full demo lifecycle, each for a distinct job, is sophisticated human-AI orchestration.",
+    r_why:"The multi-tool stack is named and each tool's role is clear (EKX for RFP intel, Gemini for research, Claude Code for automation, Agent Factory for agentic flows, Joule for narrative). A peer could follow the same approach, though exact step-by-step instructions aren't detailed — hence 3, not 4.",
+    s_why:"Excellent hook, perfect metaphor consistency throughout, a climactic moment ('eyes widen'), and a memorable ending. The 63-second video feels effortless and confident — a rare quality.",
+    i_why:"Covers the entire pre-sales lifecycle from RFP to live demo. The combination of time compression with quality improvement (customer-specific narratives) is transformative for pre-sales teams. Inspires adoption of multi-agent workflows."
+  },
+  {
+    rank:3, name:"Cagatay Ozak", score:15, c:4,r:3,s:4,i:4,
+    useCase:"Pre-Sales Advisor skill — 200+ data sources, 2,000+ downloads",
+    tool:"Joule Hub / Pre-Sales Advisor Skill", duration:"56s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F99%2E%20Cagatay%20Ozak%20%28Turkiye%29%2Fpresales%5Fadvisor%5Fv4%5FCagatay%20Ozak%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E24f34a8a%2Dfad9%2D4138%2D99f8%2D9af0d2ad0885",
+    summary:"Opens with a killer stat: 2,000+ SAP colleagues downloaded this skill. The Pre-Sales Advisor on Joule Hub pulls from 200+ data sources in parallel — shelfware, AI feature usage, support cases, renewals, market intelligence — turning hours of manual data gathering before a customer meeting into minutes. 'Your next meeting is already waiting.'",
+    c_why:"Building a skill with 200+ integrated data sources that has already been adopted by 2,000+ colleagues goes far beyond the standard 'I used Joule to prep for a meeting.' The breadth of data sources (shelfware, AI adoption data, support tickets, competitive intel, renewals) is genuinely novel. The parallel-pull architecture is sophisticated.",
+    r_why:"The skill exists and is findable on Joule Hub — 2,000 colleagues already downloaded it, which is the ultimate replicability proof. The presentation names where to find it and what it does. One point deducted because the steps to build such a skill aren't described for someone wanting to recreate it.",
+    s_why:"'30 minutes to a customer meeting. Contracts, renewals, support tickets, AI adoption data. Pulling all that together takes hours.' Urgency established in two sentences. The resolution ('it's already waiting') mirrors the opening tension perfectly. Tight, confident, no wasted words.",
+    i_why:"2,000+ downloads is a hard adoption metric that no other submission matches. The scope — covering every dimension of pre-meeting preparation — and the proven team-wide uptake make this the most demonstrably impactful submission in the competition."
+  },
+  {
+    rank:4, name:"Sam Renshaw", score:15, c:4,r:3,s:4,i:4,
+    useCase:"Autonomous SIM — simulation game built with Claude for customer demos",
+    tool:"Claude Code", duration:"58s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F140%2E%20Sam%20Renshaw%20%28UK%29%2F07%2E10%20autonomous%20sim%20game%20promo%20video%5FSam%20Renshaw%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E535737ed%2Dfab5%2D471d%2Dadfc%2Dbdced65d7fb8",
+    summary:"Built a simulation game in Claude that puts customers inside the autonomous enterprise. 115 real agents run autonomously. Players choose strategy across 12 quarters of business decisions. Three score metrics: revenue, cost, carbon. A leaderboard. 'No slides. No pre-recorded demos.' Customers compete, engage, and leave having experienced autonomous enterprise rather than been told about it.",
+    c_why:"Creating a fully playable simulation game as a sales asset — using Claude to code 115 real agents — is the most technically ambitious and conceptually original submission in the competition. No one else turned the customer demo format itself into an interactive experience. The shift from passive demo to active participation is a genuine format innovation.",
+    r_why:"The concept is clear and the tool (Claude Code) is named. The high build complexity (115 agents, 12-quarter simulation, three metrics) means replication requires significant engineering effort — hence 3, not 4. A peer inspired by this would need more technical scaffolding.",
+    s_why:"'No slides. No pre-recorded demos.' The contrast with standard demo formats is the hook. The three-metric structure and leaderboard detail makes the game feel real rather than hypothetical. The emotional payoff is implicit but powerful: customers compete for the win.",
+    i_why:"Transforms passive product demonstrations into competitive customer experiences. 115 agents and a real scoring system means the engagement is substantive. The format shift (from telling to experiencing) has the potential to measurably change win rates — a truly transformative sales innovation."
+  },
+  {
+    rank:5, name:"Adam Kassab", score:14, c:4,r:3,s:3,i:4,
+    useCase:"Joule Desktop as full sales engine for agri-business demand gen",
+    tool:"Joule Desktop, Power Automate", duration:"62s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F111%2E%20Adam%20Kassab%20%28Dubai%2C%20United%20Arab%20Emirates%29%2FAi%20can%20do%20it%2DAdam%20Kassab%20submission%5FAdam%20Kassab%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E7ea92a6d%2D96a8%2D4d8a%2Da69d%2D3d84bf73487c",
+    summary:"Transformed a 48-column demand gen report into personalized, campaign-ready AE outreach at scale using Joule Desktop. Built ML algorithm to predict missing data (e.g. tons of meat/year for agri customers). Connected to pricing app, CRM (1360), and Power Automate for automated email delivery. Result: 6% pipeline increase in one quarter.",
+    c_why:"Using Joule Desktop to write an ML algorithm that fills missing agricultural data (predicting tons of meat per year when no data exists) and embedding it into a full demand-gen pipeline is genuinely inventive. The combination of data science, CRM integration, and automated outreach is more sophisticated than any other submission's technical architecture.",
+    r_why:"The workflow is described with clear components: connectors + skills for data cleaning, solution mapping via 1360, pricing app integration, ML gap-fill, and Power Automate for delivery. Steps are named but not fully step-by-step — a peer could follow the approach with effort.",
+    s_why:"The opening grounds the viewer in the team and mission immediately. The agri-specific example (tons of meat) is concrete and memorable. The 6% pipeline number lands well. Loses one point because the delivery is functional rather than emotionally engaging — it narrates rather than demonstrates.",
+    i_why:"6% pipeline increase in a single quarter is the hardest business metric in the top 10. Team-level (multiple AEs receiving personalized outreach). Scales across any demand gen segment. Built and deployed — not hypothetical."
+  },
+  {
+    rank:6, name:"Charlotte Bobrie", score:14, c:3,r:3,s:4,i:4,
+    useCase:"Excel matrix → live team dashboard via plain-language Joule conversation",
+    tool:"Joule", duration:"67s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F04%2E%20Charlotte%20Bobrie%20%28France%29%2FAI%20Challenge%5FCharlotte%20Bobrie%5FCharlotte%20BOBRIE%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ecded2054%2D0c02%2D40c0%2D9c09%2Da4519be9a856",
+    summary:"'Matrix every month. This was my life.' Every month, a multi-tab Excel file, hours of copy-paste. One Joule conversation later: a live dynamic dashboard accessible to the whole team. 'I didn't become a developer. I just stopped doing the boring part.' The closing line becomes a call-to-action: 'So what is your Excel file? Joule is waiting for you.'",
+    c_why:"The framing — presenting a personal pain point as universally relatable ('what is your Excel file?') and turning it into a team invitation — is a creative storytelling choice, not just a tool demo. The meta-moment ('even this presentation AI built in less than an hour') adds a satisfying recursive touch.",
+    r_why:"The approach is clear: describe your Excel structure to Joule in plain language, no code or IT ticket required. The live dashboard output is demonstrated. Loses one point because the specific prompts used are not shown — a viewer knows the concept but would need to experiment.",
+    s_why:"Best emotional arc in the top 10. Opens with a personal pain point, builds through the transformation, and closes with a universal invitation. 'I just stopped doing the boring part' is the most quotable line in the competition. Well-paced, relatable, and ends with a clear CTA.",
+    i_why:"Turns a personal productivity win into a team-accessible tool. The 'what is your Excel file?' framing scales the impact beyond one person — it's an adoption invitation. Inspires colleagues who see their own workflow in the story."
+  },
+  {
+    rank:7, name:"Christophe Bernard", score:14, c:4,r:3,s:3,i:4,
+    useCase:"Full-stack BTP CSM app with Joule MCP integration, live demo",
+    tool:"EKX, VS Code + Claude, SAP BTP, Joule MCP", duration:"59s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F50%2E%20Christophe%20Bernard%20%28France%29%2FAIcandothat%5FCustomerActivitiesTracker%5FChristo%5FChristophe%20BERNARD%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E32737b8a%2D6af4%2D4b93%2Dbe72%2D01246c3e994d",
+    summary:"A BTP CSM who actually built and deployed a real app: mocked up in EKX, coded in VS Code with Claude, hosted on BTP, and connected to Joule via MCP. Live demo shows: update engagement topics during a customer call, one-click PDF generation for the customer, then Joule cross-checks the email log and suggests additions with accept/deny buttons.",
+    c_why:"The deepest technical build in the competition. Going from EKX mockup to VS Code + Claude to live BTP deployment to Joule MCP agentic workflow in 59 seconds — while showing all of it working — is a genuinely impressive demonstration of end-to-end AI-assisted development. The Joule email cross-check with accept/deny is a sophisticated agentic interaction pattern.",
+    r_why:"The full stack is named (EKX → VS Code + Claude → BTP deploy → Joule MCP). The live demo shows each step working. A technically capable peer could follow this path. One point deducted because the specific MCP setup and BTP deployment aren't detailed enough for immediate replication.",
+    s_why:"The live demo format is engaging and credible. The progression from design to build to deploy to integrate is logical. Loses one point because it's more of a technical walkthrough than a narrative — the 'why this matters' emotional layer is implicit rather than explicit.",
+    i_why:"Built, deployed, and running — not hypothetical. The Joule MCP integration creates a scalable template for CSMs to build their own engagement tools. The one-click PDF and email cross-check directly address CSM productivity bottlenecks."
+  },
+  {
+    rank:8, name:"Dale Clemitson", score:14, c:3,r:3,s:4,i:4,
+    useCase:"AE Deal Advisor — Joule skill for complex deal navigation",
+    tool:"Joule / AE Deal Advisor Skill", duration:"53s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F70%2E%20Dale%20Clemitson%20%28South%20Africa%29%2FAE%5FDeal%20%5FAdvisor%5FFinal%5FI501037%5FDale%20Clemitson%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E6091e6a4%2Dd4ca%2D428e%2D9011%2D60215ccf81e7",
+    summary:"'A GPS rerouting you around a traffic jam — but for complex deal negotiations.' Two modes: Deal Advisor (stuck deal → game plan, root causes, concession options, commercial impact) and Q&A (translates SAP deal mechanics like CEPT/4C/ramp thresholds into plain English). Every answer cited from official SAP guidelines — no hallucination risk.",
+    c_why:"The GPS metaphor is the clearest and most apt analogy in the competition — it perfectly captures 'stuck deal, need a reroute' in one image. The two-mode structure (diagnostic vs. reference) shows thoughtful tool design. The citation-from-official-sources detail is a distinctive trust-building feature.",
+    r_why:"Both modes are described with concrete inputs and outputs. The Q&A mode's translation of CEPT/4C/ramp thresholds is specific enough for a peer to understand exactly what to ask and expect back. Grounding in SAP-sourced guidelines means others can use it confidently.",
+    s_why:"The GPS opening is immediately arresting. The problem is specific ('complex deal negotiations') and the solution's two modes are clearly differentiated. 'You don't have to worry about AI making things up' addresses the trust objection directly and memorably. Clean, well-paced, confident.",
+    i_why:"Saves 1–2 days per complex deal by replacing manual research through SAP policies. Directly addresses one of the highest-friction points in the AE workflow. The trust mechanism (SAP-cited sources) enables confident adoption at scale."
+  },
+  {
+    rank:9, name:"Nils Charvin", score:14, c:3,r:3,s:4,i:4,
+    useCase:"Account research agent — built in Claude Code, adopted team-wide via Joule",
+    tool:"Claude Code → Joule", duration:"56s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F92%2E%20Nils%20Charvin%20%28France%29%2FThe%5FCoffees%5FStill%5FHot%5F60s%5FFINAL%5FNils%20CHARVIN%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E24af30fe%2Da370%2D4e7f%2Db9b5%2D797e05084d33",
+    summary:"'The research piled up, the accounts went quiet, and my coffee went cold.' Built an account research agent in Claude Code: pulls sourced contacts, verifies them (no invented names), maps account signals. Moved it into Joule so the whole team could use it. 'I built it for one desk. One share later it was everyone's — and the pipeline started to move.'",
+    c_why:"The personal-to-team adoption arc is beautifully structured. The contact-verification detail (sourced names, no hallucinations) shows thoughtful tool design. The journey from 'cold coffee' frustration to 'pipeline moving' is the competition's most complete narrative transformation.",
+    r_why:"The workflow is named (Claude Code for build, Joule for team deployment) and the output is described (sourced contacts, verified, account signals). The sharing mechanism (move to Joule) is the replication path. One point deducted because the Claude Code implementation specifics aren't shown.",
+    s_why:"'The research piled up, the accounts went quiet, and my coffee went cold' is the best opening line in the competition. Every subsequent beat earns its place. The closing — 'one share later it was everyone's' — is understated and powerful. This is the submission that most feels like a story rather than a demo.",
+    i_why:"The pipeline moved. A personal tool that became a team tool via a single share is the definition of scalable impact. The contact verification feature directly addresses a hallucination risk that would otherwise block adoption. Team-level, measurable, already proven."
+  },
+  {
+    rank:10, name:"Sara Sbacchi", score:14, c:4,r:3,s:4,i:3,
+    useCase:"Joule as empathy engine — think like the customer",
+    tool:"Joule", duration:"55s",
+    video:"https://sap-my.sharepoint.com/personal/anne_samson_sap_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fanne%5Fsamson%5Fsap%5Fcom%2FDocuments%2FDocuments%2F0%2E%20EMEA%20AI%20can%20do%20that%20Challenge%20%28entries%29%2F47%2E%20Sara%20Sbacchi%20%28Ireland%29%2FSara%20joule%20project%20%281%29%5FSara%20Sbacchi%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E21ba1f38%2D3b92%2D4d60%2D9c93%2D91c19cea06d9",
+    summary:"'What if I ask Joule to think like the customer?' Uses Joule not as a data retrieval tool but as an empathy engine: simulate customer frustration, confusion, and improvement ideas for a real scenario (a deleted user ID that can't be reactivated). 'Joule didn't change the process. It changed the conversation.'",
+    c_why:"The most conceptually original submission in the top 10. No one else thought to use an AI assistant as an empathy simulation engine. Asking Joule to roleplay as a confused, frustrated customer — and using that output to improve the service interaction — is a fundamentally different use paradigm. The framing question ('what if Joule thinks like the customer?') opens a new category of AI use.",
+    r_why:"The approach is clear: frame a prompt as 'think like a customer experiencing X problem' and use the output to improve the interaction. The deleted-user-ID scenario is concrete. One point deducted because the specific prompts and how to structure the empathy simulation aren't detailed step-by-step.",
+    s_why:"A rhetorical question as the hook ('what if?') invites the viewer to think alongside the presenter. The concrete scenario grounds the abstract concept. The closing line — 'it changed the conversation, not the process' — is the best distillation of human-AI collaboration's real value in the whole competition.",
+    i_why:"Impact is 3 rather than 4 because the immediate output is better conversation starters rather than a deployed productivity tool or hard metric. The potential is clearly transformative — reframing how support and CSM teams prepare for difficult interactions — but it describes a mindset shift more than a measured business outcome."
+  }
+];
+
+/* ══════════════════════════════════════════════════════════════════════
+   CRITERION CONFIG
+══════════════════════════════════════════════════════════════════════ */
+const CRIT = [
+  { key:'c', label:'Creativity',    color:'var(--cr-creativity)',    whyKey:'c_why' },
+  { key:'r', label:'Replicability', color:'var(--cr-replicability)', whyKey:'r_why' },
+  { key:'s', label:'Storytelling',  color:'var(--cr-storytelling)',  whyKey:'s_why' },
+  { key:'i', label:'Impact',        color:'var(--cr-impact)',        whyKey:'i_why' },
+];
+
+/* ══════════════════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════════════════ */
+let activeIdx = null;
+let activeCrit = null; // which criterion pill is expanded
+
+/* ══════════════════════════════════════════════════════════════════════
+   RANK BADGE CSS CLASS
+══════════════════════════════════════════════════════════════════════ */
+function rankClass(rank) {
+  if (rank === 1) return 'gold';
+  if (rank === 2 || rank === 3) return 'silver';
+  return 'bronze';
+}
+function rankEmoji(rank) {
+  if (rank === 1) return '🥇';
+  if (rank === 2) return '🥈';
+  if (rank === 3) return '🥉';
+  return `#${rank}`;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RENDER RANK LIST (left panel)
+══════════════════════════════════════════════════════════════════════ */
+function renderRankList() {
+  const list = document.getElementById('rankList');
+  list.innerHTML = TOP10.map((d, idx) => {
+    const cls = rankClass(d.rank);
+    const barSegs = CRIT.map(cr => {
+      const pct = (d[cr.key] / 16) * 100;
+      return `<div class="mini-seg mini-${cr.key}" style="flex:${d[cr.key]}"></div>`;
+    }).join('');
+    return `
+    <div class="rank-item" id="rankItem-${idx}" tabindex="0" role="button"
+         aria-label="${d.name}, rank ${d.rank}, score ${d.score} of 16"
+         onclick="selectEntry(${idx})"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectEntry(${idx})}"
+         onmouseenter="showTip(event,'${d.name}','${d.useCase}',${d.score})"
+         onmousemove="moveTip(event)" onmouseleave="hideTip()">
+      <div class="rank-num ${cls}">${rankEmoji(d.rank)}</div>
+      <div class="rank-info">
+        <div class="rank-name">${d.name}</div>
+        <div class="rank-usecase">${d.useCase}</div>
+        <div class="mini-bar">${barSegs}</div>
+      </div>
+      <div class="rank-score-badge">${d.score}/16</div>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RENDER DETAIL PANEL
+══════════════════════════════════════════════════════════════════════ */
+function renderDetail(d) {
+  activeCrit = null;
+  const dp = document.getElementById('detailPanel');
+  const cls = rankClass(d.rank);
+
+  const pillsHtml = CRIT.map((cr, ci) => `
+    <div class="spill" id="spill-${ci}"
+         style="--spill-color:${cr.color}"
+         tabindex="0" role="button"
+         aria-label="${cr.label} score ${d[cr.key]} out of 4, click to see why"
+         onclick="toggleCrit(${ci}, this)"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCrit(${ci},this)}">
+      <div class="spill-label">${cr.label}</div>
+      <div class="spill-value" style="color:${cr.color}">${d[cr.key]}</div>
+      <div class="spill-max">/ 4</div>
+    </div>
+  `).join('');
+
+  const accordionsHtml = CRIT.map((cr, ci) => {
+    const pips = [1,2,3,4].map(p =>
+      `<div class="crit-pip${p <= d[cr.key] ? ' filled' : ''}" style="--spill-color:${cr.color}"></div>`
+    ).join('');
+    return `
+    <div class="crit-detail" id="critDetail-${ci}" style="border-top:2px solid ${cr.color}20">
+      <div class="crit-detail-inner">
+        <div>
+          <div class="crit-detail-text">${d[cr.whyKey]}</div>
+          <div class="crit-rubric-bar" style="margin-top:14px">${pips}</div>
+        </div>
+        <div>
+          <div class="crit-detail-score-big" style="color:${cr.color}">${d[cr.key]}</div>
+          <div class="crit-detail-score-label">out of 4</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const breakdownHtml = CRIT.map(cr => {
+    const score = d[cr.key];
+    const dotColor = score===4?'var(--score-max)':score===3?'var(--score-hi)':score===2?'var(--score-mid)':'var(--score-lo)';
+    return `
+    <div class="breakdown-cell">
+      <h4 style="color:${cr.color}">
+        <span class="score-dot" style="background:${dotColor}">${score}</span>
+        ${cr.label}
+      </h4>
+      <p>${d[cr.whyKey]}</p>
+    </div>`;
+  }).join('');
+
+  dp.innerHTML = `
+  <div class="detail-card">
+    <div class="detail-head">
+      <div class="detail-rank-line">
+        <span class="detail-rank-badge ${cls}">${rankEmoji(d.rank)} Rank ${d.rank}</span>
+        <span style="font-size:12px;color:var(--txt-3)">${d.duration} · ${d.tool}</span>
+      </div>
+      <div class="detail-name">${d.name}</div>
+      <div class="detail-usecase-tag">${d.useCase}</div>
+      <a class="video-link" href="${d.video}" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="8" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M9 5.5L13 7L9 8.5V5.5Z" fill="currentColor"/></svg>
+        Watch submission
+      </a>
+    </div>
+
+    <!-- Score pills — clickable -->
+    <div style="padding:6px 28px 4px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt-3)">
+      Click a criterion to see the scoring rationale
+    </div>
+    <div class="score-pills">
+      <div class="spill spill-total" style="cursor:default;flex:0 0 auto;min-width:90px;">
+        <div class="spill-label">Total</div>
+        <div class="spill-value" style="color:var(--sap-blue-bright)">${d.score}</div>
+        <div class="spill-max">/ 16</div>
+      </div>
+      ${pillsHtml}
+    </div>
+
+    <!-- Accordion panels — one per criterion -->
+    ${accordionsHtml}
+
+    <!-- Use-case summary -->
+    <div class="summary-section">
+      <h3>What they built</h3>
+      <p>${d.summary}</p>
+    </div>
+
+    <!-- 2×2 breakdown grid -->
+    <div class="breakdown-grid">${breakdownHtml}</div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   CRITERION ACCORDION TOGGLE
+══════════════════════════════════════════════════════════════════════ */
+function toggleCrit(ci, pillEl) {
+  const panel = document.getElementById(`critDetail-${ci}`);
+  const allPills = document.querySelectorAll('.spill:not(.spill-total)');
+  const allPanels = document.querySelectorAll('.crit-detail');
+
+  if (activeCrit === ci) {
+    // close
+    panel.classList.remove('open');
+    pillEl.classList.remove('active');
+    activeCrit = null;
+  } else {
+    // close all
+    allPanels.forEach(p => p.classList.remove('open'));
+    allPills.forEach(p => p.classList.remove('active'));
+    // open this one
+    panel.classList.add('open');
+    pillEl.classList.add('active');
+    activeCrit = ci;
+    // scroll panel into view smoothly
+    setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 50);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   ENTRY SELECTION
+══════════════════════════════════════════════════════════════════════ */
+function selectEntry(idx) {
+  // Deselect previous
+  if (activeIdx !== null) {
+    const prev = document.getElementById(`rankItem-${activeIdx}`);
+    if (prev) prev.classList.remove('active');
+    const prevRow = document.getElementById(`tableRow-${activeIdx}`);
+    if (prevRow) prevRow.classList.remove('active-row');
+  }
+  activeIdx = idx;
+  const item = document.getElementById(`rankItem-${idx}`);
+  if (item) item.classList.add('active');
+  const row = document.getElementById(`tableRow-${idx}`);
+  if (row) row.classList.add('active-row');
+
+  renderDetail(TOP10[idx]);
+  document.getElementById('detailPanel').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SCOREBOARD TABLE
+══════════════════════════════════════════════════════════════════════ */
+function renderTable() {
+  const tbody = document.getElementById('scoreTableBody');
+  tbody.innerHTML = TOP10.map((d, idx) => `
+    <tr id="tableRow-${idx}" onclick="selectEntry(${idx})">
+      <td class="td-rank">${d.rank}</td>
+      <td class="td-name">${d.name}</td>
+      <td style="font-size:12px;color:var(--txt-2);max-width:220px;white-space:normal">${d.useCase}</td>
+      <td style="font-size:11px;color:var(--txt-3)">${d.tool}</td>
+      <td><span class="chip chip-${d.c}">${d.c}</span></td>
+      <td><span class="chip chip-${d.r}">${d.r}</span></td>
+      <td><span class="chip chip-${d.s}">${d.s}</span></td>
+      <td><span class="chip chip-${d.i}">${d.i}</span></td>
+      <td class="td-total">${d.score}</td>
+    </tr>
+  `).join('');
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   TOOLTIP
+══════════════════════════════════════════════════════════════════════ */
+const tip = document.getElementById('tooltip');
+function showTip(e, name, useCase, score) {
+  tip.innerHTML = `<strong>${name}</strong><div class="ts">${useCase}</div><div class="ts" style="margin-top:4px;color:var(--sap-blue-bright);font-weight:600">${score}/16</div>`;
+  tip.classList.add('show');
+  positionTip(e);
+}
+function moveTip(e) { positionTip(e); }
+function hideTip()  { tip.classList.remove('show'); }
+function positionTip(e) {
+  const x = e.clientX + 14, y = e.clientY - 10;
+  tip.style.left = (x + 250 > window.innerWidth ? e.clientX - 260 : x) + 'px';
+  tip.style.top  = (y + 80  > window.innerHeight ? e.clientY - 90 : y) + 'px';
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════════════════ */
+renderRankList();
+renderTable();
+// Auto-select #1 on load
+selectEntry(0);
+</script>
+</body>
+</html>
